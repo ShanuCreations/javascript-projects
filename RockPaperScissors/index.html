@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./RockPaperScissors.css" />
+  </head>
+
+  <body>
+    <h1>Rock Paper Scissors</h1>
+    <div class="message"></div>
+
+    <div class="playarea">
+      <button type="button" id="rock">Rock</button>
+      <button type="button" id="paper">Paper</button>
+      <button type="button" id="scissors">Scissors</button>
+    </div>
+
+    <div class="score-board">
+      <h3>Score Board</h3>
+    </div>
+
+    <script>
+      //const Player, Computer = 0;
+      let displayMsg = document.querySelector(".message");
+      const displayScore = document.querySelector(".score-board");
+      let scores = [0, 0];
+
+      //this creates a node list for buttons
+      const buttons = document.querySelectorAll("button");
+      for (let i = 0; i <= buttons.length; i++) {
+        buttons[i].addEventListener("click", game);
+      }
+
+      function game(e) {
+        let playerSelection = e.target.innerText;
+        const random = Math.floor(Math.random() * 3);
+        let computerSelection;
+        console.log(random);
+
+        if (random === 0) computerSelection = "Rock";
+        else if (random === 1) computerSelection = "Paper";
+        else if (random === 2) computerSelection = "Scissors";
+
+        console.log("Computer Selection :" + "" + computerSelection);
+        let result = checkWinner(playerSelection, computerSelection);
+
+        if (result === "Player") {
+          result = result + " wins !!";
+          scores[0]++;
+        } else if (result === "Computer") {
+          result = result + " wins !!";
+          scores[1]++;
+        } else {
+          result = "It's a draw !!";
+        }
+
+        displayScore.innerHTML = `<span stype="text-align:center">
+                  <b>SCORES</b> <br> <br>
+                  Player - ${scores[0]} <br> Computer - ${scores[1]} </span> <br> <br>`;
+        displayMsg.innerHTML = `${playerSelection} vs ${computerSelection} <br> <br> ${result}`;
+      }
+
+      //Checking the winner
+      function checkWinner(player, computer) {
+        if (player === computer) return "It's a draw !!";
+        else if (player === "Rock") {
+          if (computer === "Paper") return "Computer";
+          else return "Player";
+        } else if (player === "Scissors") {
+          if (computer === "Rock") return "Computer";
+          else return "Player";
+        } else if (player === "Paper") {
+          if (computer === "Scissors") return "Computer";
+          else return "Player";
+        }
+      }
+    </script>
+  </body>
+</html>
